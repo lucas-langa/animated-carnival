@@ -22,7 +22,7 @@ jobs:
 
       - name: Upload theme
         run: |
-          if [ "${{ github.head_ref || github.ref_name }}" == "production" ]; then
+          if [ "${{ github.head_ref || github.ref_name }}" == "master" ]; then
             shopify theme push \
               --json \
               --ignore config/settings_data.json templates/*.json sections/*.json \
@@ -30,7 +30,7 @@ jobs:
               --store ${{ secrets.SHOPIFY_STORE }} \
               --password ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }} \
               --allow-live
-          elif [ "${{ github.head_ref || github.ref_name }}" == "development" ]; then
+          elif [ "${{ github.head_ref || github.ref_name }}" == "dev" ]; then
             shopify theme push \
               --json \
               --ignore config/settings_data.json templates/*.json sections/*.json \
