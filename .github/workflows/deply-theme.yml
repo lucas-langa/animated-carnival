@@ -3,8 +3,8 @@ name: Theme deploy
 on:
   push:
     branches:
-      - production
-      - development
+      - master
+      - dev
 
 jobs:
   deploy:
