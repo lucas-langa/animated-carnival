@@ -27,7 +27,7 @@ jobs:
           --ignore config/settings_data.json templates/*.json sections/*.json \
           --theme ${{ vars.PRODUCTION_THEME_NAME }} \
           --store ${{ secrets.SHOPIFY_STORE }} \
-          --theme-token ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }} \
+          --password ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }} \
           --allow-live
 
       - name: Deploy to Development (dev)
@@ -35,6 +35,6 @@ jobs:
         run: npx shopify theme push \
           --json \
           --ignore config/settings_data.json templates/*.json sections/*.json \
-          --theme ${{ vars.DEVELOPMENT_THEME_NAME }} \
-          --store ${{ secrets.SHOPIFY_STORE }} \
-          --theme-token ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          --theme "${{ vars.DEVELOPMENT_THEME_NAME }}" \
+          --store "${{ secrets.SHOPIFY_STORE }}" \
+          --password "${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}"
