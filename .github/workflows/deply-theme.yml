@@ -1,0 +1,34 @@
+name: Theme deploy
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli
+
+      - name: Deploy to Production (master)
+        if: github.ref_name == 'master'
+        run: shopify theme push --json \
+          --ignore config/settings_data.json templates/*.json sections/*.json \
+          --theme ${{ vars.PRODUCTION_THEME_NAME }} \
+          --store ${{ secrets.SHOPIFY_STORE }} \
+          --password ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }} \
+          --allow-live
+
+      - name: Deploy to Development (dev)
+        if: github.ref_name == 'dev'
+        run: shopify theme push --json --ignore config/settings_data.json templates/*.json sections/*.json --password ${{ secrets.THEME_TOKEN }} --store ${{ secrets.SHOPIFY_STORE }} --theme Horizon --force --allow-live
