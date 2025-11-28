@@ -22,8 +22,7 @@ jobs:
 
       - name: Deploy to Production (master)
         if: github.ref_name == 'master'
-        run: shopify theme push \
-          --json \
+        run: shopify theme push --json \
           --ignore config/settings_data.json templates/*.json sections/*.json \
           --theme ${{ vars.PRODUCTION_THEME_NAME }} \
           --store ${{ secrets.SHOPIFY_STORE }} \
