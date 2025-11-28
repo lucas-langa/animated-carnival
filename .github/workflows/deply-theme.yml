@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy to Development (dev)
         if: github.ref_name == 'dev'
-        run: shopify theme push --json --ignore config/settings_data.json templates/*.json sections/*.json --password ${{ secrets.THEME_TOKEN }} --store ${{ secrets.SHOPIFY_STORE }} --theme Horizon
+        run: shopify theme push --json --ignore config/settings_data.json templates/*.json sections/*.json --password ${{ secrets.THEME_TOKEN }} --store ${{ secrets.SHOPIFY_STORE }} --theme Horizon --force
